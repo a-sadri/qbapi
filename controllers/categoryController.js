@@ -37,16 +37,17 @@ const newCategory = asyncHandler(async (req, res) => {
 
 // GET /categories
 const getAllCategory = asyncHandler(async (req, res) => {
-  res.json({ message: 'getAllCategory' });
+  const categories = await Category.find({});
+  res.status(200).json(categories);
 });
 
 // GET /categories/:name
-const getOneCategory = asyncHandler(async (req, res) => {
-  res.json({ message: 'getOneCategory' });
-});
+// const getOneCategory = asyncHandler(async (req, res) => {
+//   res.json({ message: 'getOneCategory' });
+// });
 
 // PUT
 
 // DELETE
 
-export { newCategory, getAllCategory, getOneCategory };
+export { newCategory, getAllCategory };
