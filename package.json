@@ -1,0 +1,29 @@
+{
+  "name": "qbapi",
+  "version": "1.0.0",
+  "description": "An API for Quizzes, Questions and Answers, ... ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Quiz",
+    "Exam",
+    "Question",
+    "Answer",
+    "Multiple",
+    "choice",
+    "..."
+  ],
+  "author": "Ali Sadri",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "mongoose": "^6.5.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
