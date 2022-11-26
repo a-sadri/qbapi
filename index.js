@@ -24,7 +24,7 @@ const options = {
     info: {
       title: 'QB API',
       version: '1.0.0',
-      description: 'An API for Quizzes, Questions and Answers, ... ',
+      description: 'An API for Quizzes, Questions and Answers,... ',
     },
     servers: [
       {
