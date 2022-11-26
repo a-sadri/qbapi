@@ -2,7 +2,17 @@ import asyncHandler from 'express-async-handler';
 
 import Category from '../models/Category.js';
 
-// POST /categories
+// @desc     Get a category
+// @route    GET /api/categories/:id
+// @access   Private
+const getCategory = asyncHandler(async (req, res) => {
+  const category = await Category.findById(req.params.id);
+  res.status(200).json(category);
+});
+
+// @desc     Create new category
+// @route    POST /api/categories
+// @access   Private
 const newCategory = asyncHandler(async (req, res) => {
   const { name } = req.body;
 
@@ -25,29 +35,64 @@ const newCategory = asyncHandler(async (req, res) => {
   });
 
   if (category) {
-    res.status(201).json({
-      id: category._id,
-      name: category.name,
-    });
+    res.status(201).json(category);
   } else {
     res.status(400);
     throw new Error('Invalid category data');
   }
 });
 
-// GET /categories
+// @desc     Update category
+// @route    PUT /api/categories/:id
+// @access   Private
+const updateCategory = asyncHandler(async (req, res) => {
+  // Create category
+  const category = await Category.findById(req.params.id);
+
+  if (!category) {
+    res.status(400);
+    throw new Error('Category not found');
+  }
+
+  const updatedCategory = await Category.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+    }
+  );
+
+  res.status(200).json(updatedCategory);
+});
+
+// @desc     Delete category
+// @route    DELETE /api/categories/:id
+// @access   Private
+const deleteCategory = asyncHandler(async (req, res) => {
+  const category = await Category.findById(req.params.id);
+
+  if (!category) {
+    res.status(400);
+    throw new Error('Category not found');
+  }
+
+  await Category.deleteOne({ _id: req.params.id });
+
+  res.status(200).json({ id: req.params.id });
+});
+
+// @desc     Get all category
+// @route    GET /api/categories
+// @access   Private
 const getAllCategory = asyncHandler(async (req, res) => {
-  const categories = await Category.find({});
+  const categories = await Category.find();
   res.status(200).json(categories);
 });
 
-// GET /categories/:name
-// const getOneCategory = asyncHandler(async (req, res) => {
-//   res.json({ message: 'getOneCategory' });
-// });
-
-// PUT
-
-// DELETE
-
-export { newCategory, getAllCategory };
+export {
+  getCategory,
+  newCategory,
+  updateCategory,
+  deleteCategory,
+  getAllCategory,
+};

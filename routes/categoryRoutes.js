@@ -1,7 +1,10 @@
 import express from 'express';
 
 import {
+  getCategory,
   newCategory,
+  updateCategory,
+  deleteCategory,
   getAllCategory,
 } from '../controllers/categoryController.js';
 
@@ -47,8 +50,6 @@ const router = express.Router();
  *                $ref: '#/components/schemas/Category'
  */
 
-router.get('/', getAllCategory);
-
 /**
  * @swagger
  * /api/v1/categories:
@@ -73,6 +74,11 @@ router.get('/', getAllCategory);
  *
  */
 
-router.post('/', newCategory);
+router.route('/').get(getAllCategory).post(newCategory);
+router
+  .route('/:id')
+  .get(getCategory)
+  .delete(deleteCategory)
+  .put(updateCategory);
 
 export default router;
