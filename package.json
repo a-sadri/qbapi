@@ -5,7 +5,7 @@
   "description": "An API for Quizzes, Questions and Answers, ... ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "server": "nodemon index.js"
   },
   "keywords": [
@@ -29,6 +29,7 @@
     "swagger-ui-express": "^4.5.0"
   },
   "devDependencies": {
+    "jest": "^29.0.3",
     "nodemon": "^2.0.19"
   }
 }
