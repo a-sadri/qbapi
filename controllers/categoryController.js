@@ -1,4 +1,5 @@
 import asyncHandler from 'express-async-handler';
+import Joi from 'joi';
 
 import Category from '../models/Category.js';
 
@@ -17,9 +18,15 @@ const newCategory = asyncHandler(async (req, res) => {
   const { name } = req.body;
 
   // Validation
-  if (!name) {
+  const schema = Joi.object({
+    name: Joi.string().min(3).required(),
+  });
+  const { error, value } = schema.validate(req.body, { abortEarly: false });
+  console.log(error);
+
+  if (error) {
     res.status(400);
-    throw new Error('Please include all fields');
+    throw new Error(error);
   }
 
   // Find if category already exists
