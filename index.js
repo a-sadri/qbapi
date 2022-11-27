@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
+import morgan from 'morgan';
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
 
@@ -17,6 +18,11 @@ connectDB();
 // Express config
 const app = express();
 app.use(express.json());
+
+// Dev logging middleware
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 // Swagger config
 const options = {
