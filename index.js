@@ -7,7 +7,7 @@ import swaggerUI from 'swagger-ui-express';
 import connectDB from './config/db.js';
 import { errorhandler } from './middlewares/errorMiddleware.js';
 import categoryRoutes from './routes/categoryRoutes.js';
-// import questionRoutes from './routes/questionRoutes.js';
+import questionRoutes from './routes/questionRoutes.js';
 
 dotenv.config();
 
@@ -43,7 +43,7 @@ const PORT = process.env.PORT || 5000;
 // API Routes
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 app.use('/api/v1/categories', categoryRoutes);
-// app.use('/api/v1/questions', questionRoutes);
+app.use('/api/v1/questions', questionRoutes);
 
 app.use(errorhandler);
 

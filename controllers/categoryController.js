@@ -3,8 +3,16 @@ import Joi from 'joi';
 
 import Category from '../models/Category.js';
 
+// @desc     Get all categories
+// @route    GET /api/v1/categories
+// @access   Private
+const getCategories = asyncHandler(async (req, res) => {
+  const categories = await Category.find();
+  res.status(200).json(categories);
+});
+
 // @desc     Get a category
-// @route    GET /api/categories/:id
+// @route    GET /api/v1/categories/:id
 // @access   Private
 const getCategory = asyncHandler(async (req, res) => {
   const category = await Category.findById(req.params.id);
@@ -12,17 +20,16 @@ const getCategory = asyncHandler(async (req, res) => {
 });
 
 // @desc     Create new category
-// @route    POST /api/categories
+// @route    POST /api/v1/categories
 // @access   Private
-const newCategory = asyncHandler(async (req, res) => {
+const createCategory = asyncHandler(async (req, res) => {
   const { name } = req.body;
 
   // Validation
   const schema = Joi.object({
     name: Joi.string().min(3).required(),
   });
-  const { error, value } = schema.validate(req.body, { abortEarly: false });
-  console.log(error);
+  const { error } = schema.validate(req.body, { abortEarly: false });
 
   if (error) {
     res.status(400);
@@ -50,7 +57,7 @@ const newCategory = asyncHandler(async (req, res) => {
 });
 
 // @desc     Update category
-// @route    PUT /api/categories/:id
+// @route    PUT /api/v1/categories/:id
 // @access   Private
 const updateCategory = asyncHandler(async (req, res) => {
   // Create category
@@ -73,7 +80,7 @@ const updateCategory = asyncHandler(async (req, res) => {
 });
 
 // @desc     Delete category
-// @route    DELETE /api/categories/:id
+// @route    DELETE /api/v1/categories/:id
 // @access   Private
 const deleteCategory = asyncHandler(async (req, res) => {
   const category = await Category.findById(req.params.id);
@@ -88,18 +95,10 @@ const deleteCategory = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 
-// @desc     Get all category
-// @route    GET /api/categories
-// @access   Private
-const getAllCategory = asyncHandler(async (req, res) => {
-  const categories = await Category.find();
-  res.status(200).json(categories);
-});
-
 export {
+  getCategories,
   getCategory,
-  newCategory,
+  createCategory,
   updateCategory,
   deleteCategory,
-  getAllCategory,
 };
