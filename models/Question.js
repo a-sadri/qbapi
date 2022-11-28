@@ -7,11 +7,13 @@ const questionSchema = mongoose.Schema(
       required: [true, 'Please add a name value'],
       unique: true,
     },
-    options: {
-        type:,
-        ref:,
-        required: true
-    }
+    options: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Option',
+        required: true,
+      },
+    ],
   },
   {
     timestamps: true,
