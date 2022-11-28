@@ -9,6 +9,7 @@ import connectDB from './config/db.js';
 import { errorhandler } from './middlewares/errorMiddleware.js';
 import categoryRoutes from './routes/categoryRoutes.js';
 import questionRoutes from './routes/questionRoutes.js';
+import optionRoutes from './routes/optionRoutes.js';
 
 dotenv.config();
 
@@ -50,6 +51,7 @@ const PORT = process.env.PORT || 5000;
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 app.use('/api/v1/categories', categoryRoutes);
 app.use('/api/v1/questions', questionRoutes);
+app.use('/api/v1/options', optionRoutes);
 
 app.use(errorhandler);
 
