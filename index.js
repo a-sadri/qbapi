@@ -53,8 +53,15 @@ app.use('/api/v1/questions', questionRoutes);
 
 app.use(errorhandler);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(
     chalk.cyan(`Server running in ${process.env.NODE_ENV} on port ${PORT}`)
   );
+});
+
+// Handle unhandled promise rejection
+process.on('unhandledRejection', (err, promise) => {
+  console.log(`Error: ${err.message}`);
+  // Close server and exit process
+  server.close(() => process.exit(1));
 });
